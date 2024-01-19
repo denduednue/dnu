@@ -3,18 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Simple Chatbot</title>
+    <title>Simple Search Engine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #searchInput {
+            padding: 8px;
+            width: 300px;
+        }
+        #searchResults {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-log" id="chatLog"></div>
-        <div class="chat-input">
-            <input type="text" id="userInput" placeholder="Type your message...">
-            <button onclick="sendMessage()">Send</button>
-        </div>
-    </div>
+    <h1>Simple Search Engine</h1>
+    <input type="text" id="searchInput" placeholder="Search...">
+    <div id="searchResults"></div>
 
-    <script src="script.js"></script>
+    <script>
+        // Sample dataset
+        const dataset = [
+            "Lorem ipsum dolor sit amet",
+            "consectetur adipiscing elit",
+            "sed do eiusmod tempor incididunt",
+            "ut labore et dolore magna aliqua",
+            "Ut enim ad minim veniam",
+            "quis nostrud exercitation ullamco laboris",
+            "nisi ut aliquip ex ea commodo consequat",
+            "Duis aute irure dolor in reprehenderit",
+            "in voluptate velit esse cillum dolore",
+            "eu fugiat nulla pariatur"
+        ];
+
+        // Function to perform the search
+        function search(query) {
+            const results = dataset.filter(item => item.toLowerCase().includes(query.toLowerCase()));
+            return results;
+        }
+
+        // Function to display search results
+        function displayResults(results) {
+            const resultsContainer = document.getElementById("searchResults");
+            resultsContainer.innerHTML = "";
+
+            if (results.length === 0) {
+                resultsContainer.innerHTML = "No results found.";
+            } else {
+                results.forEach(result => {
+                    const resultItem = document.createElement("div");
+                    resultItem.textContent = result;
+                    resultsContainer.appendChild(resultItem);
+                });
+            }
+        }
+
+        // Event listener for the search input
+        document.getElementById("searchInput").addEventListener("input", function() {
+            const query = this.value;
+            const searchResults = search(query);
+            displayResults(searchResults);
+        });
+    </script>
 </body>
 </html>
